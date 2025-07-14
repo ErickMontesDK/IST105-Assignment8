@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>IP Assignment Result</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: black; color: #fff; margin: 100px;}
+        .container { max-width: 400px; margin: 40px auto;  padding: 2em; border-radius: 8px; border: 1px solid white; }
+        .form-group { margin-bottom: 1em; }
+        li { margin-bottom: 10px;}
+    </style>
+</head>
+<body>
+    {% if result %}
+    <div class="container">
+        <h3>MAC Address: {{ result.mac_address }}</h3>
+        <h3>DHCP Version: {{ result.dhcp_version }}</h3>
+        <h4>Output (Assigned IP and Lease Info):</h4>
+        <ul>
+            <li>mac_address: "{{ result.mac_address }}"</li>
+            {% if result.dhcp_version == "DHCPv6" %}
+                <li>assigned_ipv6: "{{ result.assigned_ip }}"</li>
+            {% else %}
+                <li>assigned_ipv4: "{{ result.assigned_ip }}"</li>
+            {% endif %}
+            <li>lease_time: "{{ result.lease_time }}"</li>
+        </ul>
+    {% else %}
+        <p>There's no assignment for the MAC</p>
+    {% endif %}
+
+    </div>
+
+    <a href="{% url 'lease_address' %}">Return previous page</a>
+</body>
+</html>

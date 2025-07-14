@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>IP Address Assignment</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: black; color: #fff; margin: 100px;}
+        .container { max-width: 400px; margin: 40px auto;  padding: 2em; border-radius: 8px; border: 1px solid white; }
+        h2 { text-align: center; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: 0.5em; }
+        input, select { width: 100%; padding: 0.5em; border: 1px solid #ccc; border-radius: 4px; }
+        .errorlist { color: #b00; margin-bottom: 1em; }
+        button { background: #007bff; color: #fff; border: none; padding: 0.7em 1.5em; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .helptext { font-size: 0.8em; color: #c4c4c4; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>IP Address Assignment</h2>
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                {{ form.dhcp_version.label_tag }}
+                {{ form.dhcp_version }}
+
+            </p>
+            <p>
+                {{ form.mac_address.label_tag }}
+                {{ form.mac_address }}
+                {% if form.mac_address.help_text %}
+                    <small style="color:gray;">{{ form.mac_address.help_text }}</small>
+                {% endif %}
+                {% for error in form.mac_address.errors %}
+                    <div style="color:red;">{{ error }}</div>
+                {% endfor %}
+            </p>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <a href="{% url 'leases_list' %}">Go to leases list</a>
+</body>
+</html>

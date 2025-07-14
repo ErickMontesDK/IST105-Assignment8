@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Leases</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: black; color: #fff; margin: 100px;}
+        .container { max-width: 900px; margin: 40px auto;  padding: 2em; border-radius: 8px; border: 1px solid white; position: relative;}
+        table { border-collapse: collapse; width: 100%; position: relative;}
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; color:black}
+    </style>
+</head>
+<body>
+    <h1>Leases list</h1>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>MAC Address</th>
+                    <th>MAC Toggle</th>
+                    <th>Even/Odd</th>
+                    <th>DHCP Version</th>
+                    <th>Assigned IP</th>
+                    <th>Lease Time (s)</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lease in leases %}
+                <tr>
+                    <td>{{ lease.id }}</td>
+                    <td>{{ lease.mac_address }}</td>
+                    <td>{{ lease.mac_toggle }}</td>
+                    <td>{{ lease.isEvenOrOdd }}</td>
+                    <td>{{ lease.dhcp_version }}</td>
+                    <td>{{ lease.assigned_ip }}</td>
+                    <td>{{ lease.lease_time }}</td>
+                    <td>{{ lease.timestamp }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">There are not registers yet</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <br>
+    <a href="{% url 'lease_address' %}">Return previous page</a>
+</body>
+</html>
